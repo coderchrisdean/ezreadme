@@ -109,7 +109,9 @@ function generateReadme(answers) {
   `;
 
   // Create the README.md file
-  const readme = `${licenseSVG}
+  const readme = `
+
+${licenseSVG}
 
 # ${answers.projectTitle}
 
@@ -138,7 +140,7 @@ For any additional questions, please contact me at [${answers.email}](mailto:${a
 `;
 
   // Write the README.md file
-  fs.writeFileSync(".\assets\READMEFILES\README.md", readme);
+  fs.writeFileSync('TEST.md', readme);
 }
 
 // TODO: Create a function to initialize app
