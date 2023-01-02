@@ -140,8 +140,20 @@ For any additional questions, please contact me at [${answers.email}](mailto:${a
 `;
 
   // Write the README.md file
-  fs.writeFileSync('TESTREADME.md', readme);
-}
+  const fs = require('fs');
+
+  const dirName = './assets/READMEFILES/';
+  const fileName = 'READMETEST.md';
+  
+  fs.mkdir(dirName, { recursive: true }, (err) => {
+    if (err) throw err;
+    console.log(`The directory "${dirName}" was created`);
+    fs.writeFile(`${dirName}/${fileName}`, '', (err) => {
+      if (err) throw err;
+      console.log(`The file "${fileName}" was created inside "${dirName}"`);
+    });
+  });
+}  
 
 // TODO: Create a function to initialize app
 function init() {
