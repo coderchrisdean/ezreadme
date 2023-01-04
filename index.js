@@ -19,12 +19,12 @@
 // TODO: Include packages needed for this application
 const inquirer = require("inquirer");
 const fs = require("fs");
-
+const generateMarkdown = require("./generateMarkdown.js");
 // TODO: Create an array of questions for user input
 const questions = [
   {
     type: "input",
-    name: "projectTitle",
+    name: "title",
     message: "Enter title of your project:",
   },
   {
@@ -77,87 +77,28 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function generateReadme(answers) {
-  let licenseSVG = "";
-  if (answers.license === "MIT") {
-    licenseSVG =
-      "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
-  } else if (answers.license === "Apache 2.0") {
-    licenseSVG =
-      "[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)";
-  } else if (answers.license === "Open Database License (ODbL)") {
-    licenseSVG =
-      "[![License: ODbL](https://img.shields.io/badge/License-ODbL-brightgreen.svg)](https://opendatacommons.org/licenses/odbl/)";
-  } else if (answers.license === "The Artistic License 2.0") {
-    licenseSVG =
-      "[![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)";
-  } else {
-    licenseSVG =
-      "[![License: None](https://img.shields.io/badge/License-None-brightgreen.svg)](https://choosealicense.com/no-permission/)";
-  }
-
-  // Table of Contents
-  const toc = `
-  ## Table of Contents
-  - [Description](#description)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [License](#license)
-  - [Contributing](#contributing)
-  - [Tests](#tests)
-  - [Questions](#questions)
-  `;
-
-  // README.md file contents
-  const readme = `
-
-${licenseSVG}
-
-# ${answers.projectTitle}
-
-${toc}
-
-## Description
-${answers.description}
-
-## Installation
-${answers.installation}
-
-## Usage
-${answers.usage}
-
-## License
-This project is covered under the ${answers.license} license.
-
-## Contributing
-${answers.contributing}
-
-## Tests
-${answers.tests}
-
-## Questions
-For any additional questions, please contact me at [${answers.email}](mailto:${answers.email}). You can also visit my [GitHub profile](https://github.com/${answers.githubUsername}).
-`;
-
-  // Write the README.md file
-  const fs = require('fs');
-
-  const dirName = './assets/READMEFILES/';
-  const fileName = 'READMETEST.md';
-  
-  fs.mkdir(dirName, { recursive: true }, (err) => {
-    if (err) throw err;
-    console.log(`The directory "${dirName}" was created`);
-    fs.writeFile(`${dirName}/${fileName}`, '', (err) => {
-      if (err) throw err;
-      console.log(`The file "${fileName}" was created inside "${dirName}"`);
+function writeToFile(fileName, data) {
+    // Use the fs.writeFile function to write the data to the file
+    fs.writeFile(fileName, data, function(error) {
+      // If there is an error, log it to the console
+      if (error) {
+        console.log(error);
+      }
+      // If there is no error, log a success message to the console
+      else {
+        console.log("Successfully created README file.");
+      }
     });
-  });
-}  
-
+  }
+  
+  
 // TODO: Create a function to initialize app
 function init() {
-  inquirer.prompt(questions).then(generateReadme);
+    // collect input data from prompt
+    inquirer.prompt(questions).then((data) => {
+    //  create sample-readme file (per Niles in slack)
+    writeToFile("sample-README.md", generateMarkdown(data));
+  });
 }
 
 // Function call to initialize app
