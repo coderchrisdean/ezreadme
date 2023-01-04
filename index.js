@@ -74,6 +74,11 @@ const questions = [
     name: "email",
     message: "Enter your email address:",
   },
+  {
+    type: "input",
+    name: "demo",
+    message: "Enter link for video demo:",
+  },
 ];
 
 // TODO: Create a function to write README file

@@ -53,12 +53,14 @@ function generateMarkdown(data) {
     ${data.description}
     
     ## Table of Contents
+    * [Description](description)
     * [Installation](#installation)
     * [Usage](#usage)
     * [License](#license)
     * [Contributing](#contributing)
     * [Tests](#tests)
     * [Questions](#questions)
+    * [Demo](#demo)
     
     ## Installation
     To install necessary dependencies, run the following command:
@@ -87,7 +89,9 @@ function generateMarkdown(data) {
     }. You can find more of my work at [${data.github}](www.github.com/${
     data.github
   }/)
-    `;
+    
+    ##Demo
+  `;
 }
 
 module.exports = generateMarkdown;
